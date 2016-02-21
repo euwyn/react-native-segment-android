@@ -26,88 +26,105 @@ import java.util.UUID;
 public class SegmentAndroidModule extends ReactContextBaseJavaModule {
 
   private Activity mActivity = null;
-  private Application mApplication = null;
   private ReactApplicationContext mContext = null;
-  
-  public SegmentAndroidModule(ReactApplicationContext reactContext, Activity mActivity, Application mApplication) {
+
+  public SegmentAndroidModule(ReactApplicationContext reactContext, Activity mActivity) {
     super(reactContext);
     this.mActivity = mActivity;
-    this.mApplication = mApplication;
     this.mContext = reactContext;
   }
-  
+
   @Override
   public String getName() {
     return "SegmentAndroid";
   }
-  
+
   @ReactMethod
   public void initialize(String apiKey) {
-    
     try {
       Analytics analytics = new Analytics.Builder(this.mContext, apiKey).build();
       Analytics.setSingletonInstance(analytics);
     } catch (Exception e ) {}
-    
   }
-  
+
+  //https://segment.com/docs/libraries/android/#identify
   @ReactMethod
-  public void logEvent(String identifier) {
-    Analytics.with(this.mContext).track(identifier, null);
+  public void identify(String userID) {
+    Analytics.with(this.mContext).identify(userID, null, null);
   }
-  
+
+  //https://segment.com/docs/libraries/android/#identify
   @ReactMethod
-  public void logEventWithProps(String identifier, ReadableMap map) {
-    
+  public void identifyWithTraits(String userID, ReadableMap map) {
+    ReadableMapKeySetIterator it = map.keySetIterator();
+    Traits traits = new Traits();
+    while (it.hasNextKey()) {
+      String key = it.nextKey();
+      ReadableType type = map.getType(key);
+      String val = map.getString(key);
+      traits.putValue(key, val);
+    }
+    Analytics.with(this.mContext).identify(userID, traits, null);
+  }
+
+  //https://segment.com/docs/libraries/android/#group
+  @ReactMethod
+  public void group(String groupID) {
+    Analytics.with(this.mContext).group(groupID, null, null);
+  }
+
+  //https://segment.com/docs/libraries/android/#group
+  @ReactMethod
+  public void groupWithTraits(String groupID, ReadableMap map) {
+    ReadableMapKeySetIterator it = map.keySetIterator();
+    Traits traits = new Traits();
+    while (it.hasNextKey()) {
+      String key = it.nextKey();
+      ReadableType type = map.getType(key);
+      String val = map.getString(key);
+      traits.putValue(key, val);
+    }
+      Analytics.with(this.mContext).group(groupID, traits, null);
+  }
+
+  //https://segment.com/docs/libraries/android/#track
+  @ReactMethod
+  public void track(String name) {
+    Analytics.with(this.mContext).track(name, null);
+  }
+
+  //https://segment.com/docs/libraries/android/#track
+  @ReactMethod
+  public void trackWithProps(String name, ReadableMap map) {
     ReadableMapKeySetIterator it = map.keySetIterator();
     Properties properties = new Properties();
-    
     while (it.hasNextKey()) {
       String key = it.nextKey();
       ReadableType type = map.getType(key);
       String val = map.getString(key);
       properties.putValue(key,val);
     }
-    
-    Analytics.with(this.mContext).track(identifier, properties);
-    
+    Analytics.with(this.mContext).track(name, properties);
   }
-  
+
+  //https://segment.com/docs/libraries/android/#screen
   @ReactMethod
-  public void setUserId(String id) {
-    Analytics.with(this.mContext).identify(id, null, null);
-  }
-  
-  /* 
-  
-  public static JSONObject convertReadableToJsonObject(ReadableMap map) throws JSONException{
-    JSONObject jsonObj = new JSONObject();
+  public void screen(String category, String name, ReadableMap map) {
     ReadableMapKeySetIterator it = map.keySetIterator();
-      
+    Properties properties = new Properties();
     while (it.hasNextKey()) {
       String key = it.nextKey();
       ReadableType type = map.getType(key);
-      switch (type) {
-        case Map:
-            jsonObj.put(key, convertReadableToJsonObject(map.getMap(key)));
-            break;
-        case String:
-            jsonObj.put(key, map.getString(key));
-            break;
-        case Number:
-            jsonObj.put(key, map.getDouble(key));
-            break;
-        case Boolean:
-            jsonObj.put(key, map.getBoolean(key));
-            break;
-        case Null:
-            jsonObj.put(key, null);
-            break;
-      }
+      String val = map.getString(key);
+      properties.putValue(key,val);
     }
-    return jsonObj;
- }
-    
- */
-     
+    Analytics.with(this.mContext).screen(category, name, properties);
+  }
+
+  //https://segment.com/docs/libraries/android/#alias
+  @ReactMethod
+  public void alias(String newUserID) {
+    Analytics.with(this.mContext).alias(newUserID, null);
+  }
+
 }
