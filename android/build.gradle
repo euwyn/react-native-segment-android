@@ -16,6 +16,6 @@ android {
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:0.16.+'
+    compile 'com.facebook.react:react-native:0.20.+'
     compile 'com.segment.analytics.android:analytics:4.+'
 }

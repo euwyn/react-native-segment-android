@@ -12,16 +12,14 @@ import java.util.*;
 
 public class ReactNativeSegmentPackage implements ReactPackage {
 
-    private Activity mActivity = null;
+    public ReactNativeSegmentPackage() {
 
-    public ReactNativeSegmentPackage(Activity activity) {
-        mActivity = activity;
     }
 
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new SegmentAndroidModule(reactContext, mActivity));
+        modules.add(new SegmentAndroidModule(reactContext));
         return modules;
     }
 

@@ -32,9 +32,9 @@ public class SegmentAndroidModule extends ReactContextBaseJavaModule {
   private Activity mActivity = null;
   private ReactApplicationContext mContext = null;
 
-  public SegmentAndroidModule(ReactApplicationContext reactContext, Activity mActivity) {
+  public SegmentAndroidModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    this.mActivity = mActivity;
+    this.mActivity = getCurrentActivity();
     this.mContext = reactContext;
   }
 
