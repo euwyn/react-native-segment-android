@@ -1,0 +1,39 @@
+{
+  "author": {
+    "email": "euwynpoon@gmail.com",
+    "name": "Euwyn Poon",
+    "url": "http://euwyn.com"
+  },
+  "bugs": {
+    "url": "https://github.com/euwyn/react-native-segment-android/issues"
+  },
+  "dependencies": {},
+  "description": "Simple React Native wrapper for Amplitude (Android) tracking",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "85553a1fc7fe18160f0e4a97d1b7ce4e3dabbcc0",
+    "tarball": "http://registry.npmjs.org/react-native-segment-android/-/react-native-segment-android-1.0.0.tgz"
+  },
+  "gitHead": "91f365719fbe1437c3a8faa4112a2ee2d3d06f36",
+  "homepage": "https://github.com/euwyn/react-native-segment-android#readme",
+  "license": "ISC",
+  "main": "index.js",
+  "maintainers": [
+    {
+      "name": "euwyn",
+      "email": "euwynpoon@gmail.com"
+    }
+  ],
+  "name": "react-native-segment-android",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/euwyn/react-native-segment-android.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0a"
+}

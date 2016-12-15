@@ -1,7 +1,6 @@
 package com.threedot.reactnativesegment;
 
 import android.app.Activity;
-import android.app.Application;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -13,22 +12,17 @@ import java.util.*;
 
 public class ReactNativeSegmentPackage implements ReactPackage {
 
-    private Activity mActivity = null;
-    private Application mApplication = null;
+    public ReactNativeSegmentPackage() {
 
-    public ReactNativeSegmentPackage(Activity activity, Application application) {
-        mActivity = activity;
-        mApplication = application;
     }
-  
+
     @Override
-    public List<NativeModule> createNativeModules(
-            ReactApplicationContext reactContext) {
+    public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
-        modules.add(new SegmentAndroidModule(reactContext, mActivity, mApplication));
+        modules.add(new SegmentAndroidModule(reactContext));
         return modules;
     }
-    
+
     @Override
     public List<Class<? extends JavaScriptModule>> createJSModules() {
         return Collections.emptyList();
